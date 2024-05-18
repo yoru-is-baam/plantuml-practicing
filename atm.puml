@@ -1,0 +1,74 @@
+@startuml ATM case
+
+actor User as user
+boundary "ATM Machine" as atm_machine
+database "Bank Server" as bank_server
+
+user -> atm_machine: Insert card
+activate user
+activate atm_machine
+
+atm_machine -->> user: Request a pin code
+
+user -> atm_machine: Enter the pin code
+
+atm_machine -> bank_server: Check the pin code
+activate bank_server
+
+bank_server -->> atm_machine: Confirm the pin code
+deactivate bank_server
+
+atm_machine -->> user: Display the selection list
+
+user -> atm_machine: Choose an option
+
+alt Check balance
+  atm_machine -> bank_server: Get balance
+  activate bank_server
+
+  bank_server -->> atm_machine: Return balance
+  deactivate bank_server
+
+  atm_machine -->> user: Display balance
+else Withdraw
+  atm_machine -->> user: Request an amount
+
+  user -> atm_machine: Enter a number
+  
+  atm_machine -> bank_server: Check balance
+  activate bank_server
+
+  bank_server -->> atm_machine: Return balance
+  deactivate bank_server
+
+  alt Balance > Withdrawal amount
+    atm_machine -> bank_server: Update balance
+    activate bank_server
+
+    bank_server -->> atm_machine: Balance has been updated
+    deactivate bank_server
+
+    atm_machine -->> user: Notification "Please get your money"
+
+    user -> atm_machine: Get money
+  else Balance < Withdrawal amount
+    atm_machine --> user: Notification "Not enough money"
+  end
+else Cancel
+  atm_machine -->> user: Notification "Transaction has been cancelled"
+end
+
+atm_machine -->> user: Print the receipt
+
+atm_machine -->> user: Return the card
+
+user -> atm_machine: Get the card back
+
+atm_machine -->> user: Display "thank you" message
+destroy atm_machine
+destroy user
+
+deactivate user
+deactivate atm_machine
+
+@enduml
