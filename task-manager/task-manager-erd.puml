@@ -1,0 +1,27 @@
+@startuml task-manager-erd
+
+entity "users" as e01 {
+  *id : INT <<PK>>
+  --
+  *name : VARCHAR(60)
+  *email : VARCHAR(60)
+  *password : VARCHAR(60)
+  *created_at : DATE <<DEFAULT (CURRENT_DATE)>>
+}
+
+entity "tasks" as e02 {
+  *id : INT <<PK>>
+  --
+  name : VARCHAR(60)
+  description : TEXT
+  *priority: ENUM('low', 'medium', 'high') <<DEFAULT 'low'>>
+  *status : ENUM('pending', 'doing', 'done') <<DEFAULT 'pending'>>
+  *created_at : DATE <<DEFAULT (CURRENT_DATE)>>
+  *updated_at : DATETIME <<DEFAULT (CURRENT_TIMESTAMP)>> <<ON UPDATE CURRENT_TIMESTAMP>>
+  --
+  *user_id : INT <<FK>>
+}
+
+e01 ||--o{ e02
+
+@enduml
