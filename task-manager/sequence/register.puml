@@ -1,0 +1,33 @@
+@startuml register
+
+actor User as user
+participant Browser as browser
+participant Server as server
+database Database as database
+
+user -> browser: Enter name, email, password
+activate user
+activate browser
+
+browser -> server: Call register API
+activate server
+
+server -> server: Validate information
+
+alt Information is valid
+  server -> database: Create a new user
+  activate database
+
+  database -->> server: Created successfully
+  deactivate database
+
+  server -->> browser: Return created response
+
+  browser -->> user: Show successful message
+else Information is invalid
+  server -->> browser: Invalid information
+
+  browser -->> user: Show error message
+end
+
+@enduml

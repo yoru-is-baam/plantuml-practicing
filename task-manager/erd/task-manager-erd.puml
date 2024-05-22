@@ -14,10 +14,8 @@ entity "tasks" as e02 {
   --
   name : VARCHAR(60)
   description : TEXT
-  *priority: ENUM('low', 'medium', 'high') <<DEFAULT 'low'>>
   *status : ENUM('pending', 'doing', 'done') <<DEFAULT 'pending'>>
-  *created_at : DATE <<DEFAULT (CURRENT_DATE)>>
-  *updated_at : DATETIME <<DEFAULT (CURRENT_TIMESTAMP)>> <<ON UPDATE CURRENT_TIMESTAMP>>
+  created_at : DATE <<DEFAULT (CURRENT_DATE)>>
   --
   *user_id : INT <<FK>>
 }

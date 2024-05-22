@@ -7,14 +7,13 @@ CREATE TABLE `users` (
   name VARCHAR(60) NOT NULL,
   email VARCHAR(60) NOT NULL,
   password VARCHAR(60) NOT NULL,
-  created_at DATE NOT NULL DEFAULT (CURRENT_DATE)
+  created_at DATE DEFAULT (CURRENT_DATE)
 );
 
 CREATE TABLE `tasks` (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(60),
+  title VARCHAR(60) NOT NULL,
   description TEXT,
-  priority ENUM('low', 'medium', 'high') DEFAULT 'low',
   status ENUM('pending', 'doing', 'done') DEFAULT 'pending',
   user_id INT NOT NULL,
   created_at DATE NOT NULL DEFAULT (CURRENT_DATE),

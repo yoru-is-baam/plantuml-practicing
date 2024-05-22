@@ -1,0 +1,37 @@
+@startuml task_manager
+
+left to right direction
+
+actor User as user
+
+package "Task Manager System" {
+  together {
+    usecase "Register" as uc1
+    usecase "Login" as uc2
+    usecase "Logout" as uc3
+    
+    user --> uc1
+    user --> uc2
+    user --> uc3
+  }
+  together {
+    usecase "View tasks" as uc4
+    usecase "Edit task" as uc5
+    usecase "Create task" as uc6
+    usecase "Delete task" as uc7
+    
+    user --> uc4
+    user --> uc5
+    user --> uc6
+    user --> uc7
+  }
+  together {
+    usecase "View profile" as uc8
+    usecase "Edit profile" as uc9
+
+    user --> uc8
+    user --> uc9
+  }
+}
+
+@enduml
